@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">DAT153-Oblig1-java</string>
+    <string name="heading_main_activity">Quizzier</string>
+    <string name="button_go_to_quiz_activity">start quiz</string>
+    <string name="button_go_to_gallery_activity">gallery</string>
+
+    <string name="gallery_heading">Gallery</string>
+
+    <string name="quiz_heading">Animal quiz</string>
+    <string name="quiz_question">What kind of animal?</string>
 </resources>
