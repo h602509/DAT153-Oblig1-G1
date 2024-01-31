@@ -1,9 +1,10 @@
-package com.example.dat153_oblig1_java;
+package com.example.dat153_oblig1_java.quiz_entries;
 
 import android.app.Application;
 import android.util.Log;
 
-import java.util.AbstractList;
+import com.example.dat153_oblig1_java.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Entries extends Application {
         entries = new ArrayList<QuizEntry>();
         entries.add(new QuizEntry(R.drawable.cat, "cat", "dog", "tiger"));
         entries.add(new QuizEntry(R.drawable.dog, "dog", "snoop dog", "horse"));
-        entries.add(new QuizEntry(R.drawable.cat, "horse", "donkey", "monkey"));
+        entries.add(new QuizEntry(R.drawable.horse, "horse", "donkey", "monkey"));
     }
 
     public QuizEntry getRandomEntry() {

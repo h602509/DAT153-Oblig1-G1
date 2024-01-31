@@ -13,13 +13,13 @@
         android:theme="@style/Theme.DAT153Oblig1java"
         tools:targetApi="31">
         <activity
-            android:name=".Quiz"
+            android:name=".activities.QuizActivity"
             android:exported="false" />
         <activity
-            android:name=".Gallery"
+            android:name=".activities.GalleryActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,12 @@
-package com.example.dat153_oblig1_java;
+package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Gallery extends AppCompatActivity {
+import com.example.dat153_oblig1_java.R;
+
+public class GalleryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.dat153_oblig1_java;
+package com.example.dat153_oblig1_java.quiz_entries;
 
 public class QuizEntry {
 

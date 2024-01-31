@@ -7,5 +7,12 @@
     <string name="gallery_heading">Gallery</string>
 
     <string name="quiz_heading">Animal quiz</string>
+    <string name="quiz_image">Quiz image</string>
     <string name="quiz_question">What kind of animal?</string>
+    <string name="quiz_default_answer_a">answer A</string>
+    <string name="quiz_default_answer_b">answer B</string>
+    <string name="quiz_default_answer_c">answer C</string>
+    <string name="quiz_submit_button1">Submit</string>
+    <string name="quiz_submit_button2">Next</string>
+    <string name="quiz_quit_button">Quit</string>
 </resources>

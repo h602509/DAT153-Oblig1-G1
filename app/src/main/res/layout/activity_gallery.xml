@@ -5,7 +5,7 @@
     android:id="@+id/GalleryHeading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Gallery">
+    tools:context=".activities.GalleryActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"

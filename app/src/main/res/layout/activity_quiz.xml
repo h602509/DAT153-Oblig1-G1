@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Quiz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Quiz">
+    tools:context=".activities.QuizActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -32,6 +33,7 @@
         android:layout_width="255dp"
         android:layout_height="219dp"
         android:layout_marginTop="30dp"
+        android:contentDescription="@string/quiz_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,5 +52,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quiz_image_current"
         app:layout_constraintVertical_bias="0.0" />
+
+    <RadioGroup
+        android:id="@+id/Quiz_radiogroup_answers"
+        android:layout_width="286dp"
+        android:layout_height="184dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Quiz_question"
+        app:layout_constraintVertical_bias="0.148">
+
+        <RadioButton
+            android:id="@+id/quiz_button_answerA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_default_answer_a" />
+
+        <RadioButton
+            android:id="@+id/quiz_button_answerB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_default_answer_b" />
+
+        <RadioButton
+            android:id="@+id/quiz_button_answerC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_default_answer_c" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/quiz_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quiz_submit_button1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Quiz_radiogroup_answers"
+        app:layout_constraintVertical_bias="0.195" />
+
+    <Button
+        android:id="@+id/quiz_quit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quiz_quit_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_submit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
