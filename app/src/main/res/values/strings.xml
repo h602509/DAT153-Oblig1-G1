@@ -4,9 +4,10 @@
     <string name="button_go_to_quiz_activity">start quiz</string>
     <string name="button_go_to_gallery_activity">gallery</string>
 
-    <string name="gallery_heading">Gallery</string>
+    <string name="gallery_heading">Quiz gallery</string>
+    <string name="gallery_add_button">Add quiz entry</string>
 
-    <string name="quiz_heading">Animal quiz</string>
+    <string name="quiz_heading">Animal quiz | Score: %1$s/%2$s</string>
     <string name="quiz_image">Quiz image</string>
     <string name="quiz_question">What kind of animal?</string>
     <string name="quiz_default_answer_a">answer A</string>
@@ -15,4 +16,8 @@
     <string name="quiz_submit_button1">Submit</string>
     <string name="quiz_submit_button2">Next</string>
     <string name="quiz_quit_button">Quit</string>
+
+    <string name="quiz_submit_fragment">Submit</string>
+    <string name="quiz_next_fragment">Next</string>
+
 </resources>

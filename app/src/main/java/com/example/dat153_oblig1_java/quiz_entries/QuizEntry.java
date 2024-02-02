@@ -1,6 +1,8 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
-public class QuizEntry {
+import java.io.Serializable;
+
+public class QuizEntry implements Serializable {
 
     private Integer image;
     private String answer;

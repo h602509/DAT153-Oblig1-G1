@@ -1,8 +1,11 @@
 package com.example.dat153_oblig1_java.activities;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainer;
+import androidx.fragment.app.FragmentContainerView;
 
+import android.app.Application;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,22 +13,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
 import com.example.dat153_oblig1_java.quiz_entries.QuizEntry;
 import com.example.dat153_oblig1_java.R;
 
-import java.util.ArrayDeque;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 public class QuizActivity extends AppCompatActivity {
 
-    Entries entries = new Entries();
+    Entries entries;
     QuizEntry entry;
     String answer;
     int counterQuiz = 0;
@@ -38,20 +39,24 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        entry = entries.getRandomEntry();
-
         // get saved counter values
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             counterQuiz = extras.getInt("quizNo");
             counterCorrect = extras.getInt("correctNo");
+            entries = (Entries)extras.getSerializable("entries");
+        } else {
+            entries = new Entries();
         }
-
+        entry = entries.getRandomEntry();
         Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
+
+        // Set header Text from Res
+        TextView header = findViewById(R.id.quiz_header);
+        header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
 
         // set image from the entry
         ImageView quizImage = findViewById(R.id.quiz_image_current);
-
         quizImage.setImageResource(entry.getImage());
 
         // Shuffle the answers
@@ -64,8 +69,8 @@ public class QuizActivity extends AppCompatActivity {
         // Setting up radio group buttons with text from quizEntry
         RadioButton[] answerButtons =
                 {findViewById(R.id.quiz_button_answerA)
-                        , findViewById(R.id.quiz_button_answerB)
-                        , findViewById(R.id.quiz_button_answerC)};
+                , findViewById(R.id.quiz_button_answerB)
+                , findViewById(R.id.quiz_button_answerC)};
 
         answerButtons[0].setText(answers.get(0));
         answerButtons[0].setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -85,37 +90,57 @@ public class QuizActivity extends AppCompatActivity {
             choosenButton = 2;
         });
 
+        Boolean answered = false;
         Button submitButton = findViewById(R.id.quiz_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counterQuiz++;
-                if (answer.equals(entry.getAnswer())) {
-                    answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
-                    answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.dark_green, getTheme()));
-                    submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
-                    counterCorrect++;
-                } else {
-                    answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
-                    answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.dark_red, getTheme()));
-                    for (int i = 0; i < 3; i++) {
-                        if (answerButtons[i].getText().equals(entry.getAnswer())) {
-                            answerButtons[i].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
-                            answerButtons[i].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+
+                if (answer != null) {
+                    if (submitButton.getText().equals("Submit")) {
+                        counterQuiz++;
+                        Boolean correctAnswer = answer.equals(entry.getAnswer());
+
+                        // colors correct answer green
+                        for (int i = 0; i < 3; i++) {
+                            if (answerButtons[i].getText().equals(entry.getAnswer())) {
+                                answerButtons[i].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+                            }
                         }
+
+                        if (correctAnswer) {
+                            counterCorrect++;
+                        } else {
+                            // colors answer given red
+                            answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
+                        }
+                        header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
                     }
+                //Log.i("Quiz", "QuizActivity.ButtonGoToActivity2 onClick(), correct: " + counterCorrect + ", of total: " + counterQuiz);
+
+                    if(submitButton.getText().toString().equals("Next")){
+                    Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
+                    intent.putExtra("quizNo", counterQuiz);
+                    intent.putExtra("correctNo", counterCorrect);
+                    intent.putExtra("entries", entries);
+                    startActivity(intent);
+                    }
+                    submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
+
                 }
 
-                Log.i("Quiz", "QuizActivity.ButtonGoToActivity2 onClick(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
-            /*
-            Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
-            intent.putExtra("quizNo", counterQuiz);
-            intent.putExtra("correctNo", counterCorrect);
-            startActivity(intent);
-            */
+
+
+
+
+
+
             }
         });
+
+
+
         Button quitButton = findViewById(R.id.quiz_quit_button);
 
         quitButton.setOnClickListener(new View.OnClickListener() {

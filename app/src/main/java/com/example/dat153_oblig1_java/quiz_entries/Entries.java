@@ -5,13 +5,16 @@ import android.util.Log;
 
 import com.example.dat153_oblig1_java.R;
 
+import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
-public class Entries extends Application {
+public class Entries implements Serializable {
 
     private final List<QuizEntry> entries;
-
     public Entries() {
 
         // init the list with the three quiz entries included in the quiz app
@@ -23,7 +26,14 @@ public class Entries extends Application {
     }
 
     public QuizEntry getRandomEntry() {
-        int ran = (int)(Math.random()*entries.size());
+        int ran = (int) (Math.random() * entries.size());
         return entries.get(ran);
+    }
+
+    public Queue<QuizEntry> getShuffledEntryQueue() {
+        Queue<QuizEntry> queue = new ArrayDeque<>();
+        Collections.shuffle(entries);
+        queue.addAll(entries);
+        return queue;
     }
 }
