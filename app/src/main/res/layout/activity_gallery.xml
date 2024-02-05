@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/quiz_header"
+            android:id="@+id/result_score_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

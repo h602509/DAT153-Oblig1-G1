@@ -46,12 +46,20 @@ public class QuizActivity extends AppCompatActivity {
             entries = new Entries();
         }
 
-        entry = entries.getRandomEntry();
-
+        if (entries.getEntries().size() == 0) {
+            Log.i("Ex1", "Activity2.ButtonB.onClick()");
+            Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
+            intent.putExtra("counterCorrect", counterCorrect);
+            intent.putExtra("counterQuiz", counterQuiz);
+            startActivity(intent);
+            finish();
+        } else {
+            entry = entries.popRandomEntry();
+        }
         Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
         // Set header Text from Res
-        TextView header = findViewById(R.id.quiz_header);
+        TextView header = findViewById(R.id.result_score_board);
         header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
 
         // set image from the entry

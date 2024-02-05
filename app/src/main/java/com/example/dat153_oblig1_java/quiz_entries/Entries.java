@@ -15,7 +15,7 @@ import java.util.List;
 public class Entries implements Serializable {
 
     private final List<QuizEntry> entries;
-
+    private final List<String> answers;
     public Entries() {
 
         // init the list with the three quiz entries included in the quiz app
@@ -24,6 +24,10 @@ public class Entries implements Serializable {
         entries.add(new QuizEntry(R.drawable.cat, "cat", "dog", "tiger"));
         entries.add(new QuizEntry(R.drawable.dog, "dog", "snoop dog", "horse"));
         entries.add(new QuizEntry(R.drawable.horse, "horse", "donkey", "monkey"));
+        answers = new ArrayList<>();
+        answers.add("sheep");
+        answers.add("wolf");
+        answers.add("deer");
     }
 
     public QuizEntry getRandomEntry() {
@@ -31,6 +35,11 @@ public class Entries implements Serializable {
         return entries.get(ran);
     }
 
+    public void generateAnswers() {
+        for (QuizEntry q : entries) {
+            answers.add(q.getAnswer());
+        }
+    }
 
     public QuizEntry popRandomEntry() {
         int ran = (int) (Math.random() * entries.size());
@@ -44,7 +53,8 @@ public class Entries implements Serializable {
     }
 
     public List<String> getWrongs(QuizEntry quizEntry) {
-        List<String> wrongs = new ArrayList<>(2);
+        generateAnswers();
+        List<String> wrongs = answers;
         int i = 0;
         while (wrongs.size() < 2) {
             QuizEntry q = getRandomEntry();
@@ -52,7 +62,6 @@ public class Entries implements Serializable {
                 wrongs.add(i, q.getAnswer());
                 i++;
             }
-
         }
 
         return wrongs;

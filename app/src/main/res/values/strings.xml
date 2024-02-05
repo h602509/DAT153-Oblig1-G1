@@ -23,4 +23,8 @@
 
     <string name="add_entry_heading">Add quiz entry</string>
 
+    <string name="result_heading">Result</string>
+    <string name="result_return_button">Return to menu</string>
+    <string name="result_score_header">Score:</string>
+    <string name="result_score">Score: %1$s/%2$s</string>
 </resources>

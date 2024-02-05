@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DAT153Oblig1java"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AddQuizEntryActivity"
             android:exported="false" />
         <activity

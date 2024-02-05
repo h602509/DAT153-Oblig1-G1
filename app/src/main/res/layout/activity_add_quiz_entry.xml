@@ -7,7 +7,7 @@
     tools:context=".activities.AddQuizEntryActivity">
 
     <TextView
-        android:id="@+id/quiz_header"
+        android:id="@+id/result_score_board"
         android:layout_width="410dp"
         android:layout_height="85dp"
         android:gravity="center"
