@@ -4,31 +4,25 @@ import java.io.Serializable;
 
 public class QuizEntry implements Serializable {
 
-    private Integer image;
+    private Integer imgRef;
     private String answer;
-    private String wrong1;
-    private String wrong2;
 
-    public QuizEntry(Integer image, String answer, String wrong1, String wrong2) {
-        this.image = image;
+    public QuizEntry(Integer imgRef, String answer) {
+        this.imgRef = imgRef;
         this.answer = answer;
-        this.wrong1 = wrong1;
-        this.wrong2 = wrong2;
+    }
+
+    public QuizEntry(Integer imgRef, String answer, String wrong1, String wrong2) {
+        this.imgRef = imgRef;
+        this.answer = answer;
     }
 
     public Integer getImage() {
-        return image;
+        return imgRef;
     }
 
     public String getAnswer() {
         return answer;
     }
 
-    public String getWrong1() {
-        return wrong1;
-    }
-
-    public String getWrong2() {
-        return wrong2;
-    }
 }
