@@ -20,7 +20,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gallery_recycle_view"
-        android:layout_width="338dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/gallery_add_button"
         app:layout_constraintEnd_toEndOf="parent"
