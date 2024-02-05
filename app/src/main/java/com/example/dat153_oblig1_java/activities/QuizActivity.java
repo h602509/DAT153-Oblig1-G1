@@ -12,26 +12,21 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.EntryQueue;
 import com.example.dat153_oblig1_java.quiz_entries.QuizEntry;
 import com.example.dat153_oblig1_java.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 public class QuizActivity extends AppCompatActivity {
 
     Entries entries;
-    EntryQueue entryQueue;
     QuizEntry entry;
     String answer;
     int counterQuiz = 0;
     int counterCorrect = 0;
     int choosenButton = -1;
-    Boolean quit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +35,19 @@ public class QuizActivity extends AppCompatActivity {
 
         // get saved counter values
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
+            Log.i("Quiz", "QuizActivity.onCreate(), Bundle != null");
             counterQuiz = extras.getInt("quizNo");
             counterCorrect = extras.getInt("correctNo");
             entries = (Entries) extras.getSerializable("entries");
-            entryQueue = (EntryQueue) extras.getSerializable("entryQueue");
         } else {
+            Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
             entries = new Entries();
-            entryQueue = new EntryQueue(entries);
         }
 
         entry = entries.getRandomEntry();
-        //entry = entries.getRandomEntry();
+
         Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
         // Set header Text from Res
@@ -68,7 +64,6 @@ public class QuizActivity extends AppCompatActivity {
         List<String> wrongs = entries.getWrongs(entry);
         answers.add(wrongs.get(0));
         answers.add(wrongs.get(1));
-
         Collections.shuffle(answers);
 
         // Setting up radio group buttons with text from quizEntry
@@ -95,16 +90,17 @@ public class QuizActivity extends AppCompatActivity {
             choosenButton = 2;
         });
 
-        Boolean answered = false;
+        // setting up submitbutton
         Button submitButton = findViewById(R.id.quiz_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (answer != null) {
+                    // Submit answer logic
                     if (submitButton.getText().equals("Submit")) {
                         counterQuiz++;
-                        Boolean correctAnswer = answer.equals(entry.getAnswer());
+                        boolean correctAnswer = answer.equals(entry.getAnswer());
 
                         // colors correct answer green
                         for (int i = 0; i < 3; i++) {
@@ -121,34 +117,25 @@ public class QuizActivity extends AppCompatActivity {
                         }
                         header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
                     }
-                //Log.i("Quiz", "QuizActivity.ButtonGoToActivity2 onClick(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
-                    if(submitButton.getText().toString().equals("Next")){
-                    Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
-                    intent.putExtra("quizNo", counterQuiz);
-                    intent.putExtra("correctNo", counterCorrect);
-                    intent.putExtra("entryQueue", entryQueue);
-                    intent.putExtra("entries", entries);
-                    startActivity(intent);
+                    // after submit are done, the logic for pressing next
+                    if (submitButton.getText().toString().equals("Next")) {
+                        Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
+                        intent.putExtra("quizNo", counterQuiz);
+                        intent.putExtra("correctNo", counterCorrect);
+                        intent.putExtra("entries", entries);
+                        startActivity(intent);
                     }
+
+                    // sets text in submit button to "Next"
                     submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
 
                 }
-
-
-
-
-
-
-
-
             }
         });
 
-
-
+        // setting up quit button
         Button quitButton = findViewById(R.id.quiz_quit_button);
-
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,10 +145,5 @@ public class QuizActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
     }
-
 }
