@@ -1,11 +1,7 @@
 package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentContainerView;
 
-import android.app.Application;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
+import com.example.dat153_oblig1_java.quiz_entries.EntryQueue;
 import com.example.dat153_oblig1_java.quiz_entries.QuizEntry;
 import com.example.dat153_oblig1_java.R;
 
@@ -23,10 +20,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
 public class QuizActivity extends AppCompatActivity {
 
     Entries entries;
+    EntryQueue entryQueue;
     QuizEntry entry;
     String answer;
     int counterQuiz = 0;
@@ -44,11 +43,15 @@ public class QuizActivity extends AppCompatActivity {
         if (extras != null) {
             counterQuiz = extras.getInt("quizNo");
             counterCorrect = extras.getInt("correctNo");
-            entries = (Entries)extras.getSerializable("entries");
+            entries = (Entries) extras.getSerializable("entries");
+            entryQueue = (EntryQueue) extras.getSerializable("entryQueue");
         } else {
             entries = new Entries();
+            entryQueue = new EntryQueue(entries);
         }
+
         entry = entries.getRandomEntry();
+        //entry = entries.getRandomEntry();
         Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
         // Set header Text from Res
@@ -62,8 +65,10 @@ public class QuizActivity extends AppCompatActivity {
         // Shuffle the answers
         List<String> answers = new ArrayList<>();
         answers.add(0,entry.getAnswer());
-        answers.add(1, entry.getWrong1());
-        answers.add(2, entry.getWrong2());
+        List<String> wrongs = entries.getWrongs(entry);
+        answers.add(wrongs.get(0));
+        answers.add(wrongs.get(1));
+
         Collections.shuffle(answers);
 
         // Setting up radio group buttons with text from quizEntry
@@ -122,6 +127,7 @@ public class QuizActivity extends AppCompatActivity {
                     Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
                     intent.putExtra("quizNo", counterQuiz);
                     intent.putExtra("correctNo", counterCorrect);
+                    intent.putExtra("entryQueue", entryQueue);
                     intent.putExtra("entries", entries);
                     startActivity(intent);
                     }
