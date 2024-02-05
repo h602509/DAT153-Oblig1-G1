@@ -14,50 +14,50 @@ import java.util.List;
 
 public class Entries implements Serializable {
 
-    private final List<QuizEntry> entries;
+    private final List<EntryModel> entries;
     private final List<String> answers;
     public Entries() {
 
         // init the list with the three quiz entries included in the quiz app
         Log.i("Quiz", "Entries(), Entries added: {cat, dog, horse}");
         entries = new ArrayList<>();
-        entries.add(new QuizEntry(R.drawable.cat, "cat", "dog", "tiger"));
-        entries.add(new QuizEntry(R.drawable.dog, "dog", "snoop dog", "horse"));
-        entries.add(new QuizEntry(R.drawable.horse, "horse", "donkey", "monkey"));
+        entries.add(new EntryModel(R.drawable.cat, "cat"));
+        entries.add(new EntryModel(R.drawable.dog, "dog"));
+        entries.add(new EntryModel(R.drawable.horse, "horse"));
         answers = new ArrayList<>();
         answers.add("sheep");
         answers.add("wolf");
         answers.add("deer");
     }
 
-    public QuizEntry getRandomEntry() {
+    public EntryModel getRandomEntry() {
         int ran = (int) (Math.random() * entries.size());
         return entries.get(ran);
     }
 
     public void generateAnswers() {
-        for (QuizEntry q : entries) {
+        for (EntryModel q : entries) {
             answers.add(q.getAnswer());
         }
     }
 
-    public QuizEntry popRandomEntry() {
+    public EntryModel popRandomEntry() {
         int ran = (int) (Math.random() * entries.size());
-        QuizEntry q = entries.get(ran);
+        EntryModel q = entries.get(ran);
         entries.remove(ran);
         return q;
     }
 
     public void addQuizEntry(int imgRef, String answer) {
-        entries.add(new QuizEntry(imgRef, answer));
+        entries.add(new EntryModel(imgRef, answer));
     }
 
-    public List<String> getWrongs(QuizEntry quizEntry) {
+    public List<String> getWrongs(EntryModel quizEntry) {
         generateAnswers();
         List<String> wrongs = answers;
         int i = 0;
         while (wrongs.size() < 2) {
-            QuizEntry q = getRandomEntry();
+            EntryModel q = getRandomEntry();
             if (!(q.equals(quizEntry) || wrongs.contains(q.getAnswer()))) {
                 wrongs.add(i, q.getAnswer());
                 i++;
@@ -67,7 +67,7 @@ public class Entries implements Serializable {
         return wrongs;
     }
 
-    public List<QuizEntry> getEntries() {
+    public List<EntryModel> getEntries() {
         return entries;
     }
 }

@@ -2,17 +2,12 @@ package com.example.dat153_oblig1_java.quiz_entries;
 
 import java.io.Serializable;
 
-public class QuizEntry implements Serializable {
+public class EntryModel implements Serializable {
 
     private Integer imgRef;
     private String answer;
 
-    public QuizEntry(Integer imgRef, String answer) {
-        this.imgRef = imgRef;
-        this.answer = answer;
-    }
-
-    public QuizEntry(Integer imgRef, String answer, String wrong1, String wrong2) {
+    public EntryModel(Integer imgRef, String answer) {
         this.imgRef = imgRef;
         this.answer = answer;
     }

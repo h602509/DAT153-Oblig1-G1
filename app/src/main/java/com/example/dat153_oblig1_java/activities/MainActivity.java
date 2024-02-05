@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Quiz", "MainActivity.goToGallery.onClick()");
 
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+                intent.putExtra("entries", entries);
                 startActivity(intent);
             }
         });

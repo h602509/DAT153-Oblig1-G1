@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.QuizEntry;
+import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 import com.example.dat153_oblig1_java.R;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
 
     Entries entries;
-    QuizEntry entry;
+    EntryModel entry;
     String answer;
     int counterQuiz = 0;
     int counterCorrect = 0;
@@ -47,7 +47,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         if (entries.getEntries().size() == 0) {
-            Log.i("Ex1", "Activity2.ButtonB.onClick()");
+            Log.i("Quiz", "QuizActivity, no quizzes left -> start ResultActivity");
             Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
             intent.putExtra("counterCorrect", counterCorrect);
             intent.putExtra("counterQuiz", counterQuiz);
@@ -147,8 +147,10 @@ public class QuizActivity extends AppCompatActivity {
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Ex1", "Activity2.ButtonB.onClick()");
-                Intent intent = new Intent(QuizActivity.this , MainActivity.class);
+                Log.i("Quiz", "QuizActivity.QuitButton.onClick()");
+                Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
+                intent.putExtra("counterCorrect", counterCorrect);
+                intent.putExtra("counterQuiz", counterQuiz);
                 startActivity(intent);
                 finish();
             }
