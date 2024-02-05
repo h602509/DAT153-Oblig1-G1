@@ -29,8 +29,8 @@ public class ResultActivity extends AppCompatActivity {
         }
 
         // setting up results textView
-        TextView header = findViewById(R.id.result_score_board);
-        header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
+        TextView scoreBoard = findViewById(R.id.result_score_board);
+        scoreBoard.setText(getString(R.string.result_score, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
 
         // setting up return to main  button
         Button returnButton = findViewById(R.id.result_return_button);

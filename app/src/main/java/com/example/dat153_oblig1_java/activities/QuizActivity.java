@@ -59,7 +59,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
         // Set header Text from Res
-        TextView header = findViewById(R.id.result_score_board);
+        TextView header = findViewById(R.id.result_score_heading);
         header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
 
         // set image from the entry

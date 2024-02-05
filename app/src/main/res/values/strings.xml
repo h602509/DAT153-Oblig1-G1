@@ -26,5 +26,5 @@
     <string name="result_heading">Result</string>
     <string name="result_return_button">Return to menu</string>
     <string name="result_score_header">Score:</string>
-    <string name="result_score">Score: %1$s/%2$s</string>
+    <string name="result_score">%1$s / %2$s</string>
 </resources>
