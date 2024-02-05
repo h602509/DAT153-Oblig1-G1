@@ -18,6 +18,9 @@
     <string name="quiz_quit_button">Quit</string>
 
     <string name="quiz_submit_fragment">Submit</string>
+
     <string name="quiz_next_fragment">Next</string>
+
+    <string name="add_entry_heading">Add quiz entry</string>
 
 </resources>
