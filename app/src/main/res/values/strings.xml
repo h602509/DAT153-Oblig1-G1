@@ -7,6 +7,8 @@
     <string name="gallery_heading">Quiz gallery</string>
     <string name="gallery_add_button">Add quiz entry</string>
     <string name="gallery_recycler_view_init_name">Name placeholder</string>
+    <string name="gallery_sort_button_asc">A-Z</string>
+    <string name="gallery_sort_button_desc">Z-A</string>
 
     <string name="quiz_heading">Animal quiz | Score: %1$s/%2$s</string>
     <string name="quiz_image">Quiz image</string>

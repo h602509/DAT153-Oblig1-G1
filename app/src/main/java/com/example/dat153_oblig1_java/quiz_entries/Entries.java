@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -63,11 +64,20 @@ public class Entries implements Serializable {
                 i++;
             }
         }
-
         return wrongs;
     }
 
     public List<EntryModel> getEntries() {
         return entries;
     }
+
+    public void sortEntriesDesc() {
+        Collections.sort(entries);
+    }
+
+    public void sortEntriesAsc() {
+        sortEntriesDesc();
+        Collections.reverse(entries);
+    }
+
 }

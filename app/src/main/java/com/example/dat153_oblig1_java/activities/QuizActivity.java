@@ -82,18 +82,21 @@ public class QuizActivity extends AppCompatActivity {
 
         answerButtons[0].setText(answers.get(0));
         answerButtons[0].setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[0]");
             answer = (String) answerButtons[0].getText();
             choosenButton = 0;
         });
 
         answerButtons[1].setText(answers.get(1));
         answerButtons[1].setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[1]");
             answer = (String) answerButtons[1].getText();
             choosenButton = 1;
         });
 
         answerButtons[2].setText(answers.get(2));
         answerButtons[2].setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[2]");
             answer = (String) answerButtons[2].getText();
             choosenButton = 2;
         });
@@ -103,7 +106,7 @@ public class QuizActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i("Quiz", "QuizActivity.submitButton.onClick()");
                 if (answer != null) {
                     // Submit answer logic
                     if (submitButton.getText().equals("Submit")) {
