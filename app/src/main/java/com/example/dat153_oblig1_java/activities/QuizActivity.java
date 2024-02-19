@@ -83,22 +83,28 @@ public class QuizActivity extends AppCompatActivity {
         answerButtons[0].setText(answers.get(0));
         answerButtons[0].setOnCheckedChangeListener((buttonView, isChecked) -> {
             Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[0]");
-            answer = (String) answerButtons[0].getText();
-            choosenButton = 0;
+            if (isChecked) {
+                answer = (String) answerButtons[0].getText();
+                choosenButton = 0;
+            }
         });
 
         answerButtons[1].setText(answers.get(1));
         answerButtons[1].setOnCheckedChangeListener((buttonView, isChecked) -> {
             Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[1]");
-            answer = (String) answerButtons[1].getText();
-            choosenButton = 1;
+            if (isChecked) {
+                answer = (String) answerButtons[1].getText();
+                choosenButton = 1;
+            }
         });
 
         answerButtons[2].setText(answers.get(2));
         answerButtons[2].setOnCheckedChangeListener((buttonView, isChecked) -> {
             Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[2]");
-            answer = (String) answerButtons[2].getText();
-            choosenButton = 2;
+            if (isChecked) {
+                answer = (String) answerButtons[2].getText();
+                choosenButton = 2;
+            }
         });
 
         // setting up submitbutton
@@ -136,6 +142,7 @@ public class QuizActivity extends AppCompatActivity {
                         intent.putExtra("correctNo", counterCorrect);
                         intent.putExtra("entries", entries);
                         startActivity(intent);
+                        finish();
                     }
 
                     // sets text in submit button to "Next"

@@ -38,8 +38,6 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Ex1", "Activity2.ButtonB.onClick()");
-                Intent intent = new Intent(ResultActivity.this , MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
