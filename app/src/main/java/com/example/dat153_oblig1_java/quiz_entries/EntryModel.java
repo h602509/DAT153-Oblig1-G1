@@ -1,10 +1,17 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
-import java.io.Serializable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class EntryModel implements Serializable, Comparable<EntryModel> {
+@Entity
+public class EntryModel implements Comparable<EntryModel> {
 
+    @PrimaryKey (autoGenerate = true)
+    private int entryId;
+    @ColumnInfo (name = "image")
     private Integer imgRef;
+    @ColumnInfo (name = "answer")
     private String answer;
 
     public EntryModel(Integer imgRef, String answer) {
@@ -12,7 +19,13 @@ public class EntryModel implements Serializable, Comparable<EntryModel> {
         this.answer = answer;
     }
 
-    public Integer getImage() {
+    public int getEntryId() { return entryId; }
+
+    public void setEntryId(int entryId) {
+        this.entryId = entryId;
+    }
+
+    public Integer getImgRef() {
         return imgRef;
     }
 

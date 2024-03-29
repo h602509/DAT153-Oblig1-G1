@@ -9,21 +9,27 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dat153_oblig1_java.R;
+import com.example.dat153_oblig1_java.adaptor.GalleryItemAdaptor;
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
+import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
+import com.example.dat153_oblig1_java.quiz_entries.EntriesViewModel;
 
-import java.util.Arrays;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    //ny branch?
     private Entries entries = new Entries();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Quiz", "MainActivity.onCreate()");
         setContentView(R.layout.activity_main);
 
-        // connect Button goToQuiz view to logic in code
+
+
+            // connect Button goToQuiz view to logic in code
         Button goToQuiz = findViewById(R.id.goToQuiz);
         goToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override

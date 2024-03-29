@@ -1,7 +1,6 @@
 package com.example.dat153_oblig1_java.adaptor;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ public class GalleryItemAdaptor extends RecyclerView.Adapter<GalleryItemAdaptor.
     @Override
     public void onBindViewHolder(@NonNull GalleryItemAdaptor.GalleryViewHolder holder, int position) {
         EntryModel entry = entries.get(position);
-        holder.entryImg.setImageResource(entry.getImage());
+        holder.entryImg.setImageResource(entry.getImgRef());
         holder.entryName.setText(entry.getAnswer());
     }
 

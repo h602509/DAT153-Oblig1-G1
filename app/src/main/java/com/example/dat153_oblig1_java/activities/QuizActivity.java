@@ -64,7 +64,7 @@ public class QuizActivity extends AppCompatActivity {
 
         // set image from the entry
         ImageView quizImage = findViewById(R.id.quiz_image_current);
-        quizImage.setImageResource(entry.getImage());
+        quizImage.setImageResource(entry.getImgRef());
 
         // Shuffle the answers
         List<String> answers = new ArrayList<>();
