@@ -1,6 +1,7 @@
 package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +12,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
-import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
+import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.R;
+import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +22,8 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
-    Entries entries;
-    EntryModel entry;
+    LiveEntriesRepo repo = new LiveEntriesRepo(getApplication());
+    Entry entry;
     String answer;
     int counterQuiz = 0;
     int counterCorrect = 0;
@@ -41,11 +41,10 @@ public class QuizActivity extends AppCompatActivity {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle != null");
             counterQuiz = extras.getInt("quizNo");
             counterCorrect = extras.getInt("correctNo");
-            entries = (Entries) extras.getSerializable("entries");
         } else {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
 
-            entries = new Entries(new MockEntriesRepo());
+            List<Entry> entries = repo.getEntriesDsc().getValue();
         }
 
         if (entries.getEntries().size() == 0) {

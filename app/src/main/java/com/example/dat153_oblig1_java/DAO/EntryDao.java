@@ -1,6 +1,6 @@
 package com.example.dat153_oblig1_java.DAO;
 
-import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
+import com.example.dat153_oblig1_java.Database.Entry;
 
 import java.util.List;
 
@@ -14,12 +14,15 @@ import androidx.room.Query;
 public interface EntryDao {
 
     @Insert
-    void insert(EntryModel entryModel);
+    void insert(Entry Entry);
 
     @Delete
-    void delete(EntryModel entryModel);
+    void delete(Entry Entry);
 
-    //@Query("SELECT * FROM EntryModel ORDER BY ANSWER")
-    LiveData<List<EntryModel>> loadAllEntryModels();
+    @Query("SELECT * FROM Entry ORDER BY ANSWER DESC")
+    LiveData<List<Entry>> loadAllEntriesDsc();
+
+    @Query("SELECT * FROM Entry ORDER BY ANSWER ASC")
+    LiveData<List<Entry>> loadAllEntriesAsc();
 
 }

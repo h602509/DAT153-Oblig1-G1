@@ -1,7 +1,6 @@
 package com.example.dat153_oblig1_java.adaptor;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dat153_oblig1_java.Database.Entry;
+import com.example.dat153_oblig1_java.Database.LiveEntriesRepo;
 import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 
 import java.util.List;
 
 public class GalleryItemAdaptor extends RecyclerView.Adapter<GalleryItemAdaptor.GalleryViewHolder> {
 
     private Context context;
-    private List<EntryModel> entries;
+    private List<Entry> entries;
 
-    public GalleryItemAdaptor(Context context, Entries entries) {
+    public GalleryItemAdaptor(Context context, LiveData<List<Entry>> entries) {
         this.context = context;
-        this.entries = entries.getEntries();
+        this.entries = entries.getValue();
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class GalleryItemAdaptor extends RecyclerView.Adapter<GalleryItemAdaptor.
 
     @Override
     public void onBindViewHolder(@NonNull GalleryItemAdaptor.GalleryViewHolder holder, int position) {
-        EntryModel entry = entries.get(position);
+        Entry entry = entries.get(position);
         holder.entryImg.setImageResource(entry.getImage());
         holder.entryName.setText(entry.getAnswer());
     }

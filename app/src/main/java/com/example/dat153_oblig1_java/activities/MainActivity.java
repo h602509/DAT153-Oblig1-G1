@@ -1,6 +1,7 @@
 package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.quiz_entries.Entries;
 import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    private MockEntriesRepo repo = new MockEntriesRepo();
-    private Entries entries = new Entries(repo);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Quiz", "MainActivity.goToQuiz.onClick()");
 
                 Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                intent.putExtra("entries", entries);
-
                 startActivity(intent);
             }
         });
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Quiz", "MainActivity.goToGallery.onClick()");
 
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
-                intent.putExtra("entries", entries);
                 startActivity(intent);
             }
         });

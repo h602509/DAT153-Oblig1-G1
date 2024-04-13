@@ -1,15 +1,20 @@
 package com.example.dat153_oblig1_java.interfaces;
 
-import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
+import androidx.lifecycle.LiveData;
+
+import com.example.dat153_oblig1_java.Database.Entry;
 
 import java.util.List;
 
 public interface EntriesRepo {
 
 
-    void deleteEntryModel(EntryModel entryModel);
+    void deleteEntry(Entry entry);
 
-    List<EntryModel> loadAllEntryModels();
+    LiveData<List<Entry>> loadAllEntriesAsc();
 
-    void addEntryModel(int imgRef, String answer);
+    LiveData<List<Entry>> loadAllEntriesDsc();
+
+
+    void addEntry(int imgRef, String answer);
 }

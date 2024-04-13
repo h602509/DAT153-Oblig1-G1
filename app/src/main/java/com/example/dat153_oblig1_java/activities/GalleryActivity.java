@@ -1,6 +1,7 @@
 package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,28 +11,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dat153_oblig1_java.Database.Entry;
+import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
 import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.adaptor.GalleryItemAdaptor;
-import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
+
+import java.util.List;
 
 public class GalleryActivity extends AppCompatActivity {
 
-    private Entries entries;
+
+    LiveEntriesRepo repo = new LiveEntriesRepo(getApplication());
+    LiveData<List<Entry>> entries = repo.getEntriesDsc();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+
+
+
         Log.i("Quiz", "GalleryActivity.onCreate()");
 
-        Bundle extras = getIntent().getExtras();
-
-        // getting entries from Bundle coming from mainActivity
-        if (extras != null) {
-            entries = (Entries) extras.getSerializable("entries");
-        }
 
 
         // setting upp gallery view
@@ -57,11 +59,11 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (gallerySortButton.getText().equals("A-Z")) {
-                    entries.sortEntriesAsc();
+                    entries = repo.getEntriesAsc();
                     gallerySortButton.setText(R.string.gallery_sort_button_desc);
                     Log.i("Quiz", "GalleryActivity.onClick(), sortEntriesAsc(), button.getText() = A-Z -> " + gallerySortButton.getText());
                 } else if (gallerySortButton.getText().equals("Z-A")) {
-                    entries.sortEntriesDesc();
+                    entries = repo.getEntriesDsc();
                     gallerySortButton.setText(R.string.gallery_sort_button_asc);
                     Log.i("Quiz", "GalleryActivity.onClick(), sortEntriesDesc(), button.getText() = Z-A -> " + gallerySortButton.getText());
                 }
