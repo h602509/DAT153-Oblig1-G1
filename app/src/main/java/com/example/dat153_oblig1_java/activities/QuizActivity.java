@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
+import com.example.dat153_oblig1_java.quiz_entries.EntriesRepoIntent;
 import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 import com.example.dat153_oblig1_java.R;
 
@@ -43,7 +44,8 @@ public class QuizActivity extends AppCompatActivity {
             entries = (Entries) extras.getSerializable("entries");
         } else {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
-            entries = new Entries();
+
+            entries = new Entries(new EntriesRepoIntent());
         }
 
         if (entries.getEntries().size() == 0) {
@@ -53,6 +55,7 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("counterQuiz", counterQuiz);
             startActivity(intent);
             finish();
+            return;
         } else {
             entry = entries.popRandomEntry();
         }
@@ -67,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
         quizImage.setImageResource(entry.getImage());
 
         // Shuffle the answers
-        List<String> answers = new ArrayList<>();
+        List<String> answers = new ArrayList<>(3);
         answers.add(0,entry.getAnswer());
         List<String> wrongs = entries.getWrongs(entry);
         answers.add(wrongs.get(0));

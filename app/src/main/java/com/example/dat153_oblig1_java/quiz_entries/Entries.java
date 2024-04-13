@@ -4,6 +4,7 @@ package com.example.dat153_oblig1_java.quiz_entries;
 import android.util.Log;
 
 import com.example.dat153_oblig1_java.R;
+import com.example.dat153_oblig1_java.interfaces.EntriesInterface;
 
 import java.io.Serializable;
 
@@ -16,19 +17,15 @@ import java.util.List;
 public class Entries implements Serializable {
 
     private final List<EntryModel> entries;
-    private final List<String> answers;
-    public Entries() {
+    private final EntriesRepoIntent repo;
+    public Entries(EntriesRepoIntent repo) {
+        this.repo = repo;
 
         // init the list with the three quiz entries included in the quiz app
         Log.i("Quiz", "Entries(), Entries added: {cat, dog, horse}");
-        entries = new ArrayList<>();
-        entries.add(new EntryModel(R.drawable.cat, "cat"));
-        entries.add(new EntryModel(R.drawable.dog, "dog"));
-        entries.add(new EntryModel(R.drawable.horse, "horse"));
-        answers = new ArrayList<>();
-        answers.add("sheep");
-        answers.add("wolf");
-        answers.add("deer");
+        entries = repo.loadAllEntryModels();
+
+
     }
 
     public EntryModel getRandomEntry() {
@@ -36,10 +33,15 @@ public class Entries implements Serializable {
         return entries.get(ran);
     }
 
-    public void generateAnswers() {
+    public List<String> generateAnswers() {
+        List<String> answers = new ArrayList<>();
+        answers.add("sheep");
+        answers.add("wolf");
+        answers.add("deer");
         for (EntryModel q : entries) {
             answers.add(q.getAnswer());
         }
+        return answers;
     }
 
     public EntryModel popRandomEntry() {
@@ -49,13 +51,8 @@ public class Entries implements Serializable {
         return q;
     }
 
-    public void addQuizEntry(int imgRef, String answer) {
-        entries.add(new EntryModel(imgRef, answer));
-    }
-
     public List<String> getWrongs(EntryModel quizEntry) {
-        generateAnswers();
-        List<String> wrongs = answers;
+        List<String> wrongs = generateAnswers();
         int i = 0;
         while (wrongs.size() < 2) {
             EntryModel q = getRandomEntry();
@@ -66,6 +63,8 @@ public class Entries implements Serializable {
         }
         return wrongs;
     }
+
+
 
     public List<EntryModel> getEntries() {
         return entries;
