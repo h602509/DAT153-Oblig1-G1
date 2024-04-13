@@ -17,18 +17,15 @@ public class Entries implements Serializable {
 
     private final List<EntryModel> entries;
     private final List<String> answers;
-    public Entries() {
+    public Entries(List<EntryModel> entries) {
 
         // init the list with the three quiz entries included in the quiz app
         Log.i("Quiz", "Entries(), Entries added: {cat, dog, horse}");
-        entries = new ArrayList<>();
-        entries.add(new EntryModel(R.drawable.cat, "cat"));
-        entries.add(new EntryModel(R.drawable.dog, "dog"));
-        entries.add(new EntryModel(R.drawable.horse, "horse"));
+        this.entries = entries;
         answers = new ArrayList<>();
-        answers.add("sheep");
-        answers.add("wolf");
-        answers.add("deer");
+        for (EntryModel e : entries) {
+            answers.add(e.getAnswer());
+        }
     }
 
     public EntryModel getRandomEntry() {

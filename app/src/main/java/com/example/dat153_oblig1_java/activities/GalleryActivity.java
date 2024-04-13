@@ -68,6 +68,5 @@ public class GalleryActivity extends AppCompatActivity {
                 adaptor.notifyDataSetChanged();
             }
         });
-
     }
 }

@@ -1,6 +1,7 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -20,12 +21,30 @@ public class EntriesViewModel extends AndroidViewModel {
 
     public EntriesViewModel(@NonNull Application application) {
         super(application);
+        Log.i("Quiz", "LiveData.initentries(), Entries added: {cat, dog, horse}");
         mEntryRepo = new EntryRepo(application);
         mEntries = mEntryRepo.getEntries();
+        initEntries();
     }
 
-    LiveData<List<EntryModel>> getEntries() {
+    private void initEntries() {
+        if (mEntryRepo.getEntries() == null) {
+            mEntryRepo.insert(new EntryModel(R.drawable.cat, "cat"));
+            mEntryRepo.insert(new EntryModel(R.drawable.dog, "dog"));
+            mEntryRepo.insert(new EntryModel(R.drawable.horse, "horse"));
+        }
+    }
+
+    public LiveData<List<EntryModel>> getEntries() {
         return mEntries;
+    }
+
+    public Entries getEntriesClass() {
+        List<EntryModel> entries = mEntries.getValue();
+
+        return new Entries(entries);
+
+
     }
 
     private void insert(EntryModel entry) {

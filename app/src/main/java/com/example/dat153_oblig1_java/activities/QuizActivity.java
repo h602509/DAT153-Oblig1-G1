@@ -1,6 +1,9 @@
 package com.example.dat153_oblig1_java.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
+import com.example.dat153_oblig1_java.quiz_entries.EntriesViewModel;
 import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 import com.example.dat153_oblig1_java.R;
 
@@ -21,6 +25,7 @@ import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
+    EntriesViewModel liveEntries;
     Entries entries;
     EntryModel entry;
     String answer;
@@ -36,14 +41,15 @@ public class QuizActivity extends AppCompatActivity {
         // get saved counter values
         Bundle extras = getIntent().getExtras();
 
+        liveEntries = new ViewModelProvider(this).get(EntriesViewModel.class);
+
         if (extras != null) {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle != null");
             counterQuiz = extras.getInt("quizNo");
             counterCorrect = extras.getInt("correctNo");
-            entries = (Entries) extras.getSerializable("entries");
+            //entries = (Entries) extras.getSerializable("entries");
         } else {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
-            entries = new Entries();
         }
 
         if (entries.getEntries().size() == 0) {
@@ -134,7 +140,7 @@ public class QuizActivity extends AppCompatActivity {
                         Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
                         intent.putExtra("quizNo", counterQuiz);
                         intent.putExtra("correctNo", counterCorrect);
-                        intent.putExtra("entries", entries);
+                        //intent.putExtra("entries", entries);
                         startActivity(intent);
                     }
 
