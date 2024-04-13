@@ -4,7 +4,7 @@ import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 
 import java.util.List;
 
-public interface EntriesInterface {
+public interface EntriesRepo {
 
 
     void deleteEntryModel(EntryModel entryModel);

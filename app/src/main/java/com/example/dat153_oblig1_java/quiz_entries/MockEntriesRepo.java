@@ -1,17 +1,17 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
 import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.interfaces.EntriesInterface;
+import com.example.dat153_oblig1_java.interfaces.EntriesRepo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntriesRepoIntent implements EntriesInterface, Serializable{
+public class MockEntriesRepo implements EntriesRepo, Serializable{
 
 
 
-    public EntriesRepoIntent() {}
+    public MockEntriesRepo() {}
 
     @Override
     public void deleteEntryModel(EntryModel entryModel) {

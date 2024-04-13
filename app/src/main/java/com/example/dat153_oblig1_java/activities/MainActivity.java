@@ -10,12 +10,10 @@ import android.widget.Button;
 
 import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.EntriesRepoIntent;
-
-import java.util.Arrays;
+import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
 
 public class MainActivity extends AppCompatActivity {
-    private EntriesRepoIntent repo = new EntriesRepoIntent();
+    private MockEntriesRepo repo = new MockEntriesRepo();
     private Entries entries = new Entries(repo);
 
     @Override

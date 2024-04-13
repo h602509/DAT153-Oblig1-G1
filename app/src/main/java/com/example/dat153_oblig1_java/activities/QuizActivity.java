@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.quiz_entries.Entries;
-import com.example.dat153_oblig1_java.quiz_entries.EntriesRepoIntent;
+import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
 import com.example.dat153_oblig1_java.quiz_entries.EntryModel;
 import com.example.dat153_oblig1_java.R;
 
@@ -45,7 +45,7 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
 
-            entries = new Entries(new EntriesRepoIntent());
+            entries = new Entries(new MockEntriesRepo());
         }
 
         if (entries.getEntries().size() == 0) {

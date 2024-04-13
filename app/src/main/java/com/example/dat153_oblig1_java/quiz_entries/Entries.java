@@ -3,9 +3,6 @@ package com.example.dat153_oblig1_java.quiz_entries;
 
 import android.util.Log;
 
-import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.interfaces.EntriesInterface;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -17,8 +14,8 @@ import java.util.List;
 public class Entries implements Serializable {
 
     private final List<EntryModel> entries;
-    private final EntriesRepoIntent repo;
-    public Entries(EntriesRepoIntent repo) {
+    private final MockEntriesRepo repo;
+    public Entries(MockEntriesRepo repo) {
         this.repo = repo;
 
         // init the list with the three quiz entries included in the quiz app
