@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dat153_oblig1_java.Database.Entry;
+import com.example.dat153_oblig1_java.Database.EntryRoomDatabase;
 import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Quiz", "MainActivity.onCreate()");
+
         setContentView(R.layout.activity_main);
 
         // connect Button goToQuiz view to logic in code
@@ -29,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Quiz", "MainActivity.goToQuiz.onClick()");
-
                 Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                 startActivity(intent);
             }
@@ -41,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Quiz", "MainActivity.goToGallery.onClick()");
-
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
             }
         });
+
+
 
     }
 }

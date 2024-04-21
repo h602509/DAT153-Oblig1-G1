@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.dat153_oblig1_java.DAO.EntryDao;
 import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.Database.EntryRoomDatabase;
+import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.interfaces.EntriesRepo;
 
 import java.util.List;
@@ -19,39 +20,38 @@ public class LiveEntriesRepo implements EntriesRepo {
     public LiveEntriesRepo(Application application) {
         EntryRoomDatabase db = EntryRoomDatabase.getDatabase(application);
         mEntryDao = db.entryDao();
+
+        if (mEntryDao.getSize() == 0) {
+            initRepo();
+        }
     }
 
-    public LiveData<List<Entry>> getEntriesDsc() {
+    private void initRepo() {
+        mEntryDao.insert(new Entry(R.drawable.dog, "dog"));
+        mEntryDao.insert(new Entry(R.drawable.horse, "horse"));
+        mEntryDao.insert(new Entry(R.drawable.cat, "cat"));
+    }
+
+    @Override
+    public LiveData<List<Entry>> loadAllEntriesDsc() {
         return mEntryDao.loadAllEntriesDsc();
     }
 
-    public LiveData<List<Entry>> getEntriesAsc() {
+    @Override
+    public LiveData<List<Entry>> loadAllEntriesAsc() {
         return mEntryDao.loadAllEntriesAsc();
     }
 
-    public void insert(Entry entry) {
-        new insertAsyncTask(mEntryDao).execute(entry);
-    }
-
-    public void delete(Entry Entry) {
-        //TODO
-    }
 
     @Override
     public void deleteEntry(Entry entry) {
-        
-    }
-
-    @Override
-    public LiveData<List<Entry>> loadAllEntriesDesc() {
-        return null;
+        mEntryDao.delete(entry);
     }
 
     @Override
     public void addEntry(int imgRef, String answer) {
-
+        mEntryDao.insert(new Entry(imgRef, answer));
     }
-
 
     private class insertAsyncTask extends AsyncTask<Entry, Void, Void> {
 

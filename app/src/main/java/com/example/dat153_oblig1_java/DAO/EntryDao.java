@@ -25,4 +25,7 @@ public interface EntryDao {
     @Query("SELECT * FROM Entry ORDER BY ANSWER ASC")
     LiveData<List<Entry>> loadAllEntriesAsc();
 
+    @Query("SELECT COUNT (*) FROM Entry")
+    int getSize();
+
 }

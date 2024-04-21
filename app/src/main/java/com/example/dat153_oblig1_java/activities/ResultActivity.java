@@ -18,19 +18,19 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        int counterCorrect = 0;
-        int counterQuiz = 0;
+        int score = 0;
+        int questionCount = 0;
 
         Bundle extra = getIntent().getExtras();
 
         if (extra != null) {
-            counterCorrect = extra.getInt("counterCorrect");
-            counterQuiz = extra.getInt("counterQuiz");
+            score = extra.getInt("score");
+            questionCount = extra.getInt("questionCount");
         }
 
         // setting up results textView
         TextView scoreBoard = findViewById(R.id.result_score_board);
-        scoreBoard.setText(getString(R.string.result_score, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
+        scoreBoard.setText(getString(R.string.result_score, String.valueOf(score), String.valueOf(questionCount)));
 
         // setting up return to main  button
         Button returnButton = findViewById(R.id.result_return_button);

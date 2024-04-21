@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.jetbrains.annotations.NotNull;
-
 @Entity
 public class Entry {
     @PrimaryKey(autoGenerate = true)
@@ -25,11 +23,31 @@ public class Entry {
         this.answer = answer;
     }
 
-    public int getImage() {
+    public int getImgRef() {
         return imgRef;
     }
 
     public String getAnswer() {
         return answer;
+    }
+
+    public int compareTo(Entry e) {
+        return this.answer.compareTo(e.answer);
+    }
+
+    public int getEntryId() {
+        return entryId;
+    }
+
+    public void setEntryId(int entryId) {
+        this.entryId = entryId;
+    }
+
+    public void setImgRef(int imgRef) {
+        this.imgRef = imgRef;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

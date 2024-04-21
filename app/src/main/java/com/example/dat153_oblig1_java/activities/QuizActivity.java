@@ -1,9 +1,11 @@
 package com.example.dat153_oblig1_java.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,145 +15,124 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.Database.Entry;
+import com.example.dat153_oblig1_java.Database.EntryRepo;
 import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
+import com.example.dat153_oblig1_java.quiz_entries.QuizActivityService;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class QuizActivity extends AppCompatActivity {
 
-    LiveEntriesRepo repo = new LiveEntriesRepo(getApplication());
-    Entry entry;
+    EntryRepo repo;
+    QuizActivityService qs;
+    RadioButton[] answerButtons;
     String answer;
-    int counterQuiz = 0;
-    int counterCorrect = 0;
-    int choosenButton = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("Quiz", "QuizActivity.onCreate()");
         setContentView(R.layout.activity_quiz);
-
-        // get saved counter values
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            Log.i("Quiz", "QuizActivity.onCreate(), Bundle != null");
-            counterQuiz = extras.getInt("quizNo");
-            counterCorrect = extras.getInt("correctNo");
-        } else {
-            Log.i("Quiz", "QuizActivity.onCreate(), Bundle == null");
-
-            List<Entry> entries = repo.getEntriesDsc().getValue();
-        }
-
-        if (entries.getEntries().size() == 0) {
-            Log.i("Quiz", "QuizActivity, no quizzes left -> start ResultActivity");
-            Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
-            intent.putExtra("counterCorrect", counterCorrect);
-            intent.putExtra("counterQuiz", counterQuiz);
-            startActivity(intent);
-            finish();
-            return;
-        } else {
-            entry = entries.popRandomEntry();
-        }
-        Log.i("Quiz", "QuizActivity.onCreate(), correct: " + counterCorrect + ", of total: " + counterQuiz);
 
         // Set header Text from Res
         TextView header = findViewById(R.id.result_score_heading);
-        header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
 
-        // set image from the entry
-        ImageView quizImage = findViewById(R.id.quiz_image_current);
-        quizImage.setImageResource(entry.getImage());
+        repo = new EntryRepo(getApplication());
 
-        // Shuffle the answers
-        List<String> answers = new ArrayList<>(3);
-        answers.add(0,entry.getAnswer());
-        List<String> wrongs = entries.getWrongs(entry);
-        answers.add(wrongs.get(0));
-        answers.add(wrongs.get(1));
-        Collections.shuffle(answers);
+        repo.loadAllEntriesDsc().observe(this, x -> {
+            qs = new QuizActivityService(repo.loadAllEntriesDsc().getValue());
 
-        // Setting up radio group buttons with text from quizEntry
-        RadioButton[] answerButtons =
-                {findViewById(R.id.quiz_button_answerA)
-                , findViewById(R.id.quiz_button_answerB)
-                , findViewById(R.id.quiz_button_answerC)};
+            // Set header text with score
+            header.setText(getString(R.string.quiz_heading
+                    , String.valueOf(qs.getScore()), String.valueOf(qs.getCurrentRound())));
 
-        answerButtons[0].setText(answers.get(0));
-        answerButtons[0].setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[0]");
-            if (isChecked) {
-                answer = (String) answerButtons[0].getText();
-                choosenButton = 0;
+            // Set up radiobuttonViews
+            answerButtons = new RadioButton[] {findViewById(R.id.quiz_button_answerA)
+                    , findViewById(R.id.quiz_button_answerB)
+                    , findViewById(R.id.quiz_button_answerC)};
+
+            Drawable backGroundColor = answerButtons[0].getBackground();
+
+                    // Setting up radio group buttons with text from quizEntry
+            setupRadioButtons();
+
+            for (int i = 0; i < answerButtons.length; i++) {
+                int index = i;
+                answerButtons[i].setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[" + index + "]");
+                    if (isChecked) {
+                        answer = (String) answerButtons[index].getText();
+                        qs.setChosenAlternative(index);
+                    }
+                });
             }
-        });
 
-        answerButtons[1].setText(answers.get(1));
-        answerButtons[1].setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[1]");
-            if (isChecked) {
-                answer = (String) answerButtons[1].getText();
-                choosenButton = 1;
-            }
-        });
+            // set image from the entry
+            ImageView quizImage = findViewById(R.id.quiz_image_current);
+            quizImage.setImageResource(qs.getCurrentImgRef());
 
-        answerButtons[2].setText(answers.get(2));
-        answerButtons[2].setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.i("Quiz", "QuizActivity.answerButtons.OnChangeListener(), choice = button[2]");
-            if (isChecked) {
-                answer = (String) answerButtons[2].getText();
-                choosenButton = 2;
-            }
-        });
+            // setting up submit button
+            Button submitButton = findViewById(R.id.quiz_submit_button);
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("Quiz", "QuizActivity.submitButton.onClick()");
 
-        // setting up submitbutton
-        Button submitButton = findViewById(R.id.quiz_submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Quiz", "QuizActivity.submitButton.onClick()");
-                if (answer != null) {
-                    // Submit answer logic
-                    if (submitButton.getText().equals("Submit")) {
-                        counterQuiz++;
-                        boolean correctAnswer = answer.equals(entry.getAnswer());
+                    if (!answer.equals("")) {
+                        // Submit answer logic
+                        if (submitButton.getText().equals("Submit")) {
+                            qs.addCurrentRoundCounter();
+                            boolean correctAnswer = answer.equals(qs.getCurrentAnswer());
 
-                        // colors correct answer green
-                        for (int i = 0; i < 3; i++) {
-                            if (answerButtons[i].getText().equals(entry.getAnswer())) {
-                                answerButtons[i].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+                            // colors correct answer green
+                            for (int i = 0; i < 3; i++) {
+                                if (answerButtons[i].getText().equals(qs.getCurrentAnswer())) {
+                                    answerButtons[i].setBackgroundColor(getResources().getColor(R.color.green, getTheme()));
+                                }
                             }
+
+                            if (correctAnswer) {
+                                qs.addScore();
+                            } else {
+                                // colors answer given red if wrong
+                                answerButtons[qs.getChosenAlternative()].setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
+                            }
+                            header.setText(getString(R.string.quiz_heading
+                                    , String.valueOf(qs.getScore()), String.valueOf(qs.getCurrentRound())));
+
+                            // sets text in submit button to "Next"
+                            submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
                         }
 
-                        if (correctAnswer) {
-                            counterCorrect++;
-                        } else {
-                            // colors answer given red
-                            answerButtons[choosenButton].setBackgroundColor(getResources().getColor(R.color.red, getTheme()));
+                        // after submit are done, the logic for pressing next
+                        else if (submitButton.getText().toString().equals("Next")) {
+
+                            if (qs.isFinished()) {
+                                startResultActivity(qs.getScore(), qs.getNumberOfRounds());
+
+                            } else {
+                                qs.goToNextQuestion();
+                                quizImage.setImageResource(qs.getCurrentImgRef());
+                                setupRadioButtons();
+                                // reset color on all radio buttons
+                                for (RadioButton r : answerButtons) {
+                                    r.setBackground(backGroundColor);
+                                    r.setChecked(false);
+                                }
+
+                                submitButton.setText(getResources().getText(R.string.quiz_submit_button1));
+                            }
+
                         }
-                        header.setText(getString(R.string.quiz_heading, String.valueOf(counterCorrect), String.valueOf(counterQuiz)));
+
+
                     }
-
-                    // after submit are done, the logic for pressing next
-                    if (submitButton.getText().toString().equals("Next")) {
-                        Intent intent = new Intent(QuizActivity.this, QuizActivity.class);
-                        intent.putExtra("quizNo", counterQuiz);
-                        intent.putExtra("correctNo", counterCorrect);
-                        intent.putExtra("entries", entries);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    // sets text in submit button to "Next"
-                    submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
-
                 }
-            }
+            });
+            Log.i("Quiz", "QuizActivity.onCreate(), correct: " + qs.getScore() + ", of total: " + qs.getCurrentRound());
         });
 
         // setting up quit button
@@ -159,13 +140,25 @@ public class QuizActivity extends AppCompatActivity {
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Quiz", "QuizActivity.QuitButton.onClick()");
-                Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
-                intent.putExtra("counterCorrect", counterCorrect);
-                intent.putExtra("counterQuiz", counterQuiz);
-                startActivity(intent);
-                finish();
+                startResultActivity(qs.getScore(), qs.getNumberOfRounds());
             }
         });
+    }
+
+    @NonNull
+    private void setupRadioButtons() {
+        List<String> answers = qs.getAlternatives();
+        answerButtons[0].setText(answers.get(0));
+        answerButtons[1].setText(answers.get(1));
+        answerButtons[2].setText(answers.get(2));
+    }
+
+    private void startResultActivity(int score, int questionCount) {
+        Log.i("Quiz", "QuizActivity.startResultActivity()");
+        Intent intent = new Intent(QuizActivity.this , ResultActivity.class);
+        intent.putExtra("score", score);
+        intent.putExtra("questionCount", questionCount);
+        startActivity(intent);
+        finish();
     }
 }

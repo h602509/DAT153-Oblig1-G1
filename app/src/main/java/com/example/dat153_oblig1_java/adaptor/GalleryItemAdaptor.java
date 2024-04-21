@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dat153_oblig1_java.Database.Entry;
-import com.example.dat153_oblig1_java.Database.LiveEntriesRepo;
 import com.example.dat153_oblig1_java.R;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class GalleryItemAdaptor extends RecyclerView.Adapter<GalleryItemAdaptor.
     @Override
     public void onBindViewHolder(@NonNull GalleryItemAdaptor.GalleryViewHolder holder, int position) {
         Entry entry = entries.get(position);
-        holder.entryImg.setImageResource(entry.getImage());
+        holder.entryImg.setImageResource(entry.getImgRef());
         holder.entryName.setText(entry.getAnswer());
     }
 

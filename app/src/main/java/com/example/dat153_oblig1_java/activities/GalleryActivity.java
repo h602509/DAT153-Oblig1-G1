@@ -21,26 +21,22 @@ import java.util.List;
 public class GalleryActivity extends AppCompatActivity {
 
 
-    LiveEntriesRepo repo = new LiveEntriesRepo(getApplication());
-    LiveData<List<Entry>> entries = repo.getEntriesDsc();
+    LiveEntriesRepo repo;
+    LiveData<List<Entry>> entries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-
-
+        repo = new LiveEntriesRepo(getApplication());
+        entries = repo.loadAllEntriesAsc();
 
         Log.i("Quiz", "GalleryActivity.onCreate()");
 
 
+        updateEntries();
 
-        // setting upp gallery view
-        RecyclerView recyclerView = findViewById(R.id.gallery_recycle_view);
-        GalleryItemAdaptor adaptor = new GalleryItemAdaptor(this, entries);
-        recyclerView.setAdapter(adaptor);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // setting upp add entry button
         Button goToAddEntry = findViewById(R.id.gallery_add_button);
@@ -59,17 +55,28 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (gallerySortButton.getText().equals("A-Z")) {
-                    entries = repo.getEntriesAsc();
+                    entries = repo.loadAllEntriesDsc();
+                    updateEntries();
                     gallerySortButton.setText(R.string.gallery_sort_button_desc);
                     Log.i("Quiz", "GalleryActivity.onClick(), sortEntriesAsc(), button.getText() = A-Z -> " + gallerySortButton.getText());
                 } else if (gallerySortButton.getText().equals("Z-A")) {
-                    entries = repo.getEntriesDsc();
+                    entries = repo.loadAllEntriesAsc();
+                    updateEntries();
                     gallerySortButton.setText(R.string.gallery_sort_button_asc);
                     Log.i("Quiz", "GalleryActivity.onClick(), sortEntriesDesc(), button.getText() = Z-A -> " + gallerySortButton.getText());
                 }
-                adaptor.notifyDataSetChanged();
             }
         });
 
+    }
+
+    private void updateEntries() {
+        entries.observe(this, x -> {
+            // setting upp gallery view
+            RecyclerView recyclerView = findViewById(R.id.gallery_recycle_view);
+            GalleryItemAdaptor adaptor = new GalleryItemAdaptor(this, entries);
+            recyclerView.setAdapter(adaptor);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        });
     }
 }
