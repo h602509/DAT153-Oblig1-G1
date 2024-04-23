@@ -1,6 +1,7 @@
 package com.example.dat153_oblig1_java.Database;
 
 import android.app.Application;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -33,8 +34,8 @@ public class EntryRepo implements EntriesRepo {
     }
 
     @Override
-    public void addEntry(int imgRef, String answer) {
-        new insertAsyncTask(mEntryDao).execute(new Entry(imgRef, answer));
+    public void addEntry(Entry entry) {
+        new insertAsyncTask(mEntryDao).execute(entry);
     }
 
     @Override

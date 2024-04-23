@@ -1,6 +1,9 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -22,14 +25,14 @@ public class LiveEntriesRepo implements EntriesRepo {
         mEntryDao = db.entryDao();
 
         if (mEntryDao.getSize() == 0) {
-            initRepo();
+            initRepo(application.getApplicationContext());
         }
     }
 
-    private void initRepo() {
-        mEntryDao.insert(new Entry(R.drawable.dog, "dog"));
-        mEntryDao.insert(new Entry(R.drawable.horse, "horse"));
-        mEntryDao.insert(new Entry(R.drawable.cat, "cat"));
+    private void initRepo(Context context) {
+        mEntryDao.insert(new Entry(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.drawable.dog), "dog"));
+        mEntryDao.insert(new Entry(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.drawable.horse), "horse"));
+        mEntryDao.insert(new Entry(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.drawable.cat), "cat"));
     }
 
     @Override
@@ -49,8 +52,8 @@ public class LiveEntriesRepo implements EntriesRepo {
     }
 
     @Override
-    public void addEntry(int imgRef, String answer) {
-        mEntryDao.insert(new Entry(imgRef, answer));
+    public void addEntry(Entry entry) {
+        mEntryDao.insert(entry);
     }
 
     private class insertAsyncTask extends AsyncTask<Entry, Void, Void> {

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,15 +13,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.Database.EntryRepo;
 import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.quiz_entries.QuizActivityService;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -38,7 +33,7 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         // Set header Text from Res
-        TextView header = findViewById(R.id.result_score_heading);
+        TextView header = findViewById(R.id.add_new_entry_heading);
 
         repo = new EntryRepo(getApplication());
 
@@ -72,7 +67,7 @@ public class QuizActivity extends AppCompatActivity {
 
             // set image from the entry
             ImageView quizImage = findViewById(R.id.quiz_image_current);
-            quizImage.setImageResource(qs.getCurrentImgRef());
+            quizImage.setImageURI(qs.getCurrentImgRef());
 
             // setting up submit button
             Button submitButton = findViewById(R.id.quiz_submit_button);
@@ -115,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
 
                             } else {
                                 qs.goToNextQuestion();
-                                quizImage.setImageResource(qs.getCurrentImgRef());
+                                quizImage.setImageURI(qs.getCurrentImgRef());
                                 setupRadioButtons();
                                 // reset color on all radio buttons
                                 for (RadioButton r : answerButtons) {

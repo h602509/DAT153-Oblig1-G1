@@ -9,12 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dat153_oblig1_java.Database.Entry;
-import com.example.dat153_oblig1_java.Database.EntryRoomDatabase;
 import com.example.dat153_oblig1_java.R;
-import com.example.dat153_oblig1_java.quiz_entries.MockEntriesRepo;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

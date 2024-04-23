@@ -1,5 +1,7 @@
 package com.example.dat153_oblig1_java.Database;
 
+import android.net.Uri;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -10,7 +12,7 @@ public class Entry {
     private int entryId;
 
     @ColumnInfo(name = "img_ref")
-    private int imgRef;
+    private String imgRef;
 
 
     @ColumnInfo
@@ -18,13 +20,17 @@ public class Entry {
 
     public Entry() {}
 
-    public Entry(int imgRef, String answer) {
-        this.imgRef = imgRef;
+    public Entry(Uri imgRef, String answer) {
+        this.imgRef = imgRef.toString();
         this.answer = answer;
     }
 
-    public int getImgRef() {
+    public String getImgRef() {
         return imgRef;
+    }
+
+    public Uri getImgUri() {
+        return Uri.parse(imgRef);
     }
 
     public String getAnswer() {
@@ -43,8 +49,12 @@ public class Entry {
         this.entryId = entryId;
     }
 
-    public void setImgRef(int imgRef) {
+    public void setImgRef(String imgRef) {
         this.imgRef = imgRef;
+    }
+
+    public void setImgUri(Uri imgUri) {
+        this.imgRef = imgUri.toString();
     }
 
     public void setAnswer(String answer) {

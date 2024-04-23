@@ -8,7 +8,7 @@
     tools:context=".activities.GalleryActivity">
 
     <TextView
-        android:id="@+id/result_score_heading"
+        android:id="@+id/add_new_entry_heading"
         android:layout_width="414dp"
         android:layout_height="74dp"
         android:gravity="center"
@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/result_score_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/add_new_entry_heading" />
 
     <Button
         android:id="@+id/gallery_add_button"

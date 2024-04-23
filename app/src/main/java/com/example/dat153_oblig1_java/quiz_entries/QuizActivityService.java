@@ -1,5 +1,7 @@
 package com.example.dat153_oblig1_java.quiz_entries;
 
+import android.net.Uri;
+
 import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.R;
 
@@ -76,8 +78,8 @@ public class QuizActivityService {
     }
 
 
-    public int getCurrentImgRef() {
-        return currentEntry.getImgRef();
+    public Uri getCurrentImgRef() {
+        return currentEntry.getImgUri();
     }
 
     public String getCurrentAnswer() {

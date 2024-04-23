@@ -16,5 +16,5 @@ public interface EntriesRepo {
     LiveData<List<Entry>> loadAllEntriesDsc();
 
 
-    void addEntry(int imgRef, String answer);
+    void addEntry(Entry entry);
 }
