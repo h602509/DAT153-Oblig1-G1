@@ -3,36 +3,25 @@ package com.example.dat153_oblig1_java.activities;
 import static android.Manifest.permission.READ_MEDIA_IMAGES;
 import static android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.util.StringUtil;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.R;
 import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
-import com.example.dat153_oblig1_java.quiz_entries.QuizActivityService;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.Objects;
 
 public class AddQuizEntryActivity extends AppCompatActivity {
 

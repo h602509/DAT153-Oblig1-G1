@@ -2,7 +2,6 @@ package com.example.dat153_oblig1_java.quiz_entries;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 

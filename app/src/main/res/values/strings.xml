@@ -20,10 +20,6 @@
     <string name="quiz_submit_button2">Next</string>
     <string name="quiz_quit_button">Quit</string>
 
-    <string name="quiz_submit_fragment">Submit</string>
-
-    <string name="quiz_next_fragment">Next</string>
-
     <string name="add_entry_heading">Add quiz entry</string>
     <string name="add_picture_button">Add picture from gallery</string>
     <string name="add_answer_default_text">write the answer</string>

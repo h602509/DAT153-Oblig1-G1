@@ -1,7 +1,6 @@
 package com.example.dat153_oblig1_java.Database;
 
 import android.app.Application;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
