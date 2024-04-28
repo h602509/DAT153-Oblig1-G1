@@ -13,15 +13,15 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.dat153_oblig1_java.Database.EntryRepo;
 import com.example.dat153_oblig1_java.R;
+import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
 import com.example.dat153_oblig1_java.quiz_entries.QuizActivityService;
 
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
 
-    EntryRepo repo;
+    LiveEntriesRepo repo;
     QuizActivityService qs;
     RadioButton[] answerButtons;
     String answer;
@@ -35,10 +35,10 @@ public class QuizActivity extends AppCompatActivity {
         // Set header Text from Res
         TextView header = findViewById(R.id.add_new_entry_heading);
 
-        repo = new EntryRepo(getApplication());
+        repo = new LiveEntriesRepo(getApplication());
 
         repo.loadAllEntriesDsc().observe(this, x -> {
-            qs = new QuizActivityService(repo.loadAllEntriesDsc().getValue());
+            qs = new QuizActivityService(x);
 
             // Set header text with score
             header.setText(getString(R.string.quiz_heading

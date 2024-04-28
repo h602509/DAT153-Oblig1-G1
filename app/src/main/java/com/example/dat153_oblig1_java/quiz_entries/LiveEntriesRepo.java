@@ -63,8 +63,8 @@ public class LiveEntriesRepo implements EntriesRepo {
         }
 
         @Override
-        protected Void doInBackground(Entry... Entrys) {
-            mAsyncTaskDao.insert(Entrys[0]);
+        protected Void doInBackground(Entry... Entries) {
+            mAsyncTaskDao.insert(Entries[0]);
             return null;
         }
     }
