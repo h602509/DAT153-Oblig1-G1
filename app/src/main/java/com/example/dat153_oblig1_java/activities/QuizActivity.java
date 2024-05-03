@@ -156,4 +156,12 @@ public class QuizActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public String getAnswer() {
+        return qs.getCurrentAnswer();
+    }
+
+    public int getScore() {
+        return qs.getScore();
+    }
 }
