@@ -19,12 +19,12 @@ public class LiveEntriesRepo implements EntriesRepo {
 
     private EntryDao mEntryDao;
 
-    public LiveEntriesRepo(Application application) {
-        EntryRoomDatabase db = EntryRoomDatabase.getDatabase(application);
+    public LiveEntriesRepo(Context context) {
+        EntryRoomDatabase db = EntryRoomDatabase.getDatabase(context);
         mEntryDao = db.entryDao();
 
         if (mEntryDao.getSize() == 0) {
-            initRepo(application.getApplicationContext());
+            initRepo(context);
         }
     }
 
@@ -67,5 +67,9 @@ public class LiveEntriesRepo implements EntriesRepo {
             mAsyncTaskDao.insert(Entries[0]);
             return null;
         }
+    }
+
+    public int getSize() {
+        return mEntryDao.getSize();
     }
 }

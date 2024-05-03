@@ -2,16 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
-        <State />
-      </entry>
       <entry key="app">
         <State />
       </entry>
       <entry key="goToQuizActivity()">
         <State />
       </entry>
-      <entry key="useAppContext()">
+      <entry key="goToResultActivityAfterQuiz()">
+        <State />
+      </entry>
+      <entry key="goToResultActivityAfterQuiz() (1)">
         <State />
       </entry>
     </value>
