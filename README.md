@@ -1,4 +1,4 @@
-
+```
 > Task :app:connectedDebugAndroidTest
 Caching disabled for task ':app:connectedDebugAndroidTest' because:
   Build cache is disabled
@@ -39,3 +39,4 @@ INFO: Configuring Android Instrumentation driver: android_instrumentation_runtim
   }
 }
 am_instrument_timeout: 31536000
+```
