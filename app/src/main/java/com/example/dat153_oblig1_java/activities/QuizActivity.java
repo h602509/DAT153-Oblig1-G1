@@ -36,7 +36,6 @@ public class QuizActivity extends AppCompatActivity {
         TextView header = findViewById(R.id.add_new_entry_heading);
 
         repo = new LiveEntriesRepo(getApplication());
-
         repo.loadAllEntriesDsc().observe(this, x -> {
             qs = new QuizActivityService(x);
 
@@ -49,11 +48,13 @@ public class QuizActivity extends AppCompatActivity {
                     , findViewById(R.id.quiz_button_answerB)
                     , findViewById(R.id.quiz_button_answerC)};
 
+            // Saving background color of button for later
             Drawable backGroundColor = answerButtons[0].getBackground();
 
-                    // Setting up radio group buttons with text from quizEntry
+            // Setting up radio group buttons with text from quizEntry
             setupRadioButtons();
 
+            // setting up onChange listener for radio buttons.
             for (int i = 0; i < answerButtons.length; i++) {
                 int index = i;
                 answerButtons[i].setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -77,7 +78,7 @@ public class QuizActivity extends AppCompatActivity {
                     Log.i("Quiz", "QuizActivity.submitButton.onClick()");
 
                     if (!answer.equals("")) {
-                        // Submit answer logic
+                        // ------- Submit answer logic -------
                         if (submitButton.getText().equals("Submit")) {
                             qs.addCurrentRoundCounter();
                             boolean correctAnswer = answer.equals(qs.getCurrentAnswer());
@@ -102,7 +103,7 @@ public class QuizActivity extends AppCompatActivity {
                             submitButton.setText(getResources().getText(R.string.quiz_submit_button2));
                         }
 
-                        // after submit are done, the logic for pressing next
+                        // ------- after submit are done, the logic for pressing next ------
                         else if (submitButton.getText().toString().equals("Next")) {
 
                             if (qs.isFinished()) {
@@ -164,4 +165,7 @@ public class QuizActivity extends AppCompatActivity {
     public int getScore() {
         return qs.getScore();
     }
+
+
+
 }

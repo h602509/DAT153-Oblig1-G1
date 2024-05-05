@@ -1,5 +1,6 @@
 package com.example.dat153_oblig1_java.Database;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.room.RoomDatabase;
@@ -9,7 +10,7 @@ import androidx.room.Room;
 import com.example.dat153_oblig1_java.DAO.EntryDao;
 
 @Database(entities = {Entry.class}, version = 1)
-public abstract class EntryRoomDatabase extends RoomDatabase{
+public abstract class EntryRoomDatabase extends RoomDatabase {
 
     public abstract EntryDao entryDao();
     private static EntryRoomDatabase INSTANCE;

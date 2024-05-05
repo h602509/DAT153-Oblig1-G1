@@ -72,4 +72,8 @@ public class LiveEntriesRepo implements EntriesRepo {
     public int getSize() {
         return mEntryDao.getSize();
     }
+
+    public Entry findEntryByAnswer(String answer) {
+        return mEntryDao.getEntryByName(answer);
+    }
 }

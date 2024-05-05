@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Quiz", "MainActivity.onCreate()");
-
         setContentView(R.layout.activity_main);
 
         // connect Button goToQuiz view to logic in code

@@ -118,7 +118,6 @@ public class QuizActivityTest {
 
         Button a = activity.findViewById(R.id.quiz_button_answerA);
         Button b = activity.findViewById(R.id.quiz_button_answerB);
-        Button c = activity.findViewById(R.id.quiz_button_answerC);
 
         int quizLength = repo.getSize();
 
@@ -130,8 +129,7 @@ public class QuizActivityTest {
 
             if (!a.getText().equals(answer)) {
                 onView(withId(R.id.quiz_button_answerA)).perform(click());
-            }
-            if (!b.getText().equals(answer)) {
+            } else  {
                 onView(withId(R.id.quiz_button_answerB)).perform(click());
             }
 

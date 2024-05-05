@@ -1,6 +1,9 @@
 package com.example.dat153_oblig1_java.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.dat153_oblig1_java.Database.Entry;
 import com.example.dat153_oblig1_java.quiz_entries.LiveEntriesRepo;
@@ -49,7 +54,7 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        // setting upp add entry button
+        // setting sort button
         Button gallerySortButton = findViewById(R.id.gallery_sort_button);
         gallerySortButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,5 +83,16 @@ public class GalleryActivity extends AppCompatActivity {
             recyclerView.setAdapter(adaptor);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         });
+    }
+
+    public void logOnClick(View view) {
+        ConstraintLayout c = (ConstraintLayout)view.getParent();
+        TextView tv = (TextView) c.getChildAt(0);
+        Entry currentEntry = repo.findEntryByAnswer(tv.getText().toString());
+
+        Log.i("QuizTest", "GalleryActivity.recycleView.onClick(), view = " + currentEntry.getAnswer());
+
+        repo.deleteEntry(currentEntry);
+
     }
 }

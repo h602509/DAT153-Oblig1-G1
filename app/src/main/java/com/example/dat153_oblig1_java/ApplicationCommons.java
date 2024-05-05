@@ -10,9 +10,8 @@ public class ApplicationCommons extends Application {
         @Override
         public void onCreate() {
             super.onCreate();
-            // Initialize your Room database here
+            // Initialize Room database
             EntryRoomDatabase.getDatabase(getApplicationContext());
         }
     }
-
 }

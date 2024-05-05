@@ -28,4 +28,6 @@ public interface EntryDao {
     @Query("SELECT COUNT (*) FROM Entry")
     int getSize();
 
+    @Query("SELECT * FROM Entry WHERE ANSWER = :answer")
+    Entry getEntryByName(String answer);
 }
